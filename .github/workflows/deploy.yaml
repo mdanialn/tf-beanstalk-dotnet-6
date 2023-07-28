@@ -23,7 +23,7 @@ jobs:
         name: dotnet-zip
         path: |
           deploy.zip
-          .elastibeanstalk
+          .elasticbeanstalk/
   deploy:
     runs-on: ubuntu-latest
     needs: build
