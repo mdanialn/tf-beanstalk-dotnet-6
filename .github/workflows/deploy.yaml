@@ -17,13 +17,16 @@ jobs:
       run: dotnet publish WebApi -o site
     - name: Generate deployment package
       run: cd site; zip -r ../deploy.zip . -x '*.git*'; cd ..
-    - name: Upload to artifact
+    - name: Upload .NET to artifact
       uses: actions/upload-artifact@v3
       with:
         name: dotnet-zip
-        path: |
-          deploy.zip
-          .elasticbeanstalk/
+        path: deploy.zip
+    - name: Upload EB to artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: eb
+        path: .elasticbeanstalk/
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -31,10 +34,15 @@ jobs:
       id-token: write
       contents: read
     steps:
-    - name: Download a single artifact
+    - name: Download .NET App
       uses: actions/download-artifact@v3
       with:
         name: dotnet-zip
+    - name: Download EB config
+      uses: actions/download-artifact@v3
+      with:
+        name: eb
+        path: .elasticbeanstalk
     - name: Setup EB CLI
       run: |
         python --version
