@@ -21,7 +21,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: dotnet-zip
-        path: deploy.zip
+        path: |
+          deploy.zip
+          .elastibeanstalk
   deploy:
     runs-on: ubuntu-latest
     needs: build
