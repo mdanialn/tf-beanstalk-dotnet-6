@@ -7,9 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
     - name: Checkout source code
       uses: actions/checkout@v2
@@ -20,6 +17,22 @@ jobs:
       run: dotnet publish WebApi -o site
     - name: Generate deployment package
       run: cd site; zip -r ../deploy.zip . -x '*.git*'; cd ..
+    - name: Upload to artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dotnet-zip
+        path: deploy.zip
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Download a single artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: dotnet-zip
     - name: Setup EB CLI
       run: |
         python --version
