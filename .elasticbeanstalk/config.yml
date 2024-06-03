@@ -11,7 +11,7 @@ global:
   application_name: dotnet-app
   default_ec2_keyname: null
   default_platform: .NET Core running on 64bit Amazon Linux 2
-  default_region: ap-southeast-1
+  default_region: eu-north-1
   include_git_submodules: true
   instance_profile: null
   platform_name: null
