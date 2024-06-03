@@ -1,6 +1,6 @@
 name: Deploy .NET
 on:
-  push:
+  push: 
     branches:
     - main
 jobs:
