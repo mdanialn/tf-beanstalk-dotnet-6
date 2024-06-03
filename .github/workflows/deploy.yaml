@@ -30,7 +30,7 @@ jobs:
         eb --version
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2 # More information on this action can be found below in the 'AWS Credentials' section
-      with:
+      with: 
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-session-name: ${{ secrets.AWS_ROLE_SESSION_NAME }}
         aws-region: 'eu-north-1'
